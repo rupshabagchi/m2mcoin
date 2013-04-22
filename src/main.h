@@ -33,7 +33,9 @@ class CNode;
 #define COINFIX1_BLOCK  (15000)
 
 
-static const unsigned int MAX_BLOCK_SIZE = 25000; // by advice of Balthazar, reduced
+//todo: reduce block size
+//static const unsigned int MAX_BLOCK_SIZE = 25000; // by advice of Balthazar, reduced
+static const unsigned int MAX_BLOCK_SIZE = 1000000;
 static const unsigned int MAX_BLOCK_SIZE_GEN = MAX_BLOCK_SIZE/2;
 static const unsigned int MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/50;
 static const unsigned int MAX_ORPHAN_TRANSACTIONS = MAX_BLOCK_SIZE/100;
