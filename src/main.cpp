@@ -843,6 +843,11 @@ static const int64 nTargetTimespan = 0.35 * 24 * 60 * 60; // SmallChange: 0.35 d
 static const int64 nTargetSpacing = 15; // SmallChange: 15 seconds
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
 
+// Thanks: Balthazar for suggesting the following fix
+// https://bitcointalk.org/index.php?topic=182430.msg1904506#msg1904506
+static const int64 nReTargetHistoryFact = 4; // look at 4 times the retarget
+                                             // interval into the block history
+
 //
 // minimum amount of work that could possibly be required nTime after
 // minimum work required was nBase
@@ -904,15 +909,23 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     int blockstogoback = nInterval-1;
     if ((pindexLast->nHeight+1) != nInterval)
         blockstogoback = nInterval;
+    if (pindexLast->nHeight > COINFIX1_BLOCK) {
+        blockstogoback = nReTargetHistoryFact * nInterval;
+    }
 
-    // Go back by what we want to be 14 days worth of blocks
+    // Go back by what we want to be nReTargetHistoryFact*nInterval blocks
     const CBlockIndex* pindexFirst = pindexLast;
     for (int i = 0; pindexFirst && i < blockstogoback; i++)
         pindexFirst = pindexFirst->pprev;
     assert(pindexFirst);
 
     // Limit adjustment step
-    int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
+    int64 nActualTimespan = 0;
+    if (pindexLast->nHeight > COINFIX1_BLOCK)
+        // obtain average actual timespan
+        nActualTimespan = (pindexLast->GetBlockTime() - pindexFirst->GetBlockTime())/nReTargetHistoryFact;
+    else
+        nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
     printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
     if (nActualTimespan < nTargetTimespan/4)
         nActualTimespan = nTargetTimespan/4;

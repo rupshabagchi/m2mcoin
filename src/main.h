@@ -26,6 +26,13 @@ class CInv;
 class CRequestTracker;
 class CNode;
 
+// This fix should give some protection agains sudden
+// changes of the network hashrate.
+// Thanks: https://bitcointalk.org/index.php?topic=182430.msg1904506#msg1904506
+// activated: after block 15000 for all following diff retargeting events
+#define COINFIX1_BLOCK  (15000)
+
+
 static const unsigned int MAX_BLOCK_SIZE = 25000; // by advice of Balthazar, reduced
 static const unsigned int MAX_BLOCK_SIZE_GEN = MAX_BLOCK_SIZE/2;
 static const unsigned int MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/50;
