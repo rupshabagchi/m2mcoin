@@ -213,6 +213,9 @@ bool static Bind(const CService &addr, bool fError = true) {
     return true;
 }
 
+/* import from bitcoinrpc.cpp */
+extern double GetDifficulty(const CBlockIndex* blockindex = NULL);
+
 // Core-specific options shared between UI and daemon
 std::string HelpMessage()
 {
@@ -622,6 +625,32 @@ bool AppInit2()
         }
         if (nFound == 0)
             printf("No blocks matching %s were found\n", strMatch.c_str());
+        return false;
+    }
+
+    if (mapArgs.count("-exportStatData"))
+    {
+        FILE* file = fopen((GetDataDir() / "blockstat.dat").string().c_str(), "w");
+        if (!file)
+           return false;
+        
+        for (map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.begin(); mi != mapBlockIndex.end(); ++mi)
+        {
+            CBlockIndex* pindex = (*mi).second;
+            CBlock block;
+            block.ReadFromDisk(pindex);
+            block.BuildMerkleTree();
+            fprintf(file, "%d,%s,%s,%d,%f,%u\n",
+                pindex->nHeight, /* todo: height */
+                block.GetHash().ToString().c_str(),
+                block.GetPoWHash().ToString().c_str(),
+                block.nVersion,
+                //CBigNum().SetCompact(block.nBits).getuint256().ToString().c_str(),
+                GetDifficulty(pindex),
+                block.nTime
+            );
+        }
+        fclose(file);
         return false;
     }
 
