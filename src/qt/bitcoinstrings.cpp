@@ -10,7 +10,7 @@ QT_TRANSLATE_NOOP("bitcoin-core", ""
 "%s, you must set a rpcpassword in the configuration file:\n"
 " %s\n"
 "It is recommended you use the following random password:\n"
-"rpcuser=smallchangerpc\n"
+"rpcuser=m2mcoinrpc\n"
 "rpcpassword=%s\n"
 "(you do not need to remember this password)\n"
 "If the file does not exist, create it with owner-readable-only file "
@@ -123,10 +123,10 @@ QT_TRANSLATE_NOOP("bitcoin-core", "Server private key (default: server.pem)"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Set database cache size in megabytes (default: 25)"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Set database disk log size in megabytes (default: 100)"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Set key pool size to <n> (default: 100)"),
-QT_TRANSLATE_NOOP("bitcoin-core", "Specify configuration file (default: smallchange.conf)"),
+QT_TRANSLATE_NOOP("bitcoin-core", "Specify configuration file (default: m2mcoin.conf)"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Specify connection timeout (in milliseconds)"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Specify data directory"),
-QT_TRANSLATE_NOOP("bitcoin-core", "Specify pid file (default: smallchange.pid)"),
+QT_TRANSLATE_NOOP("bitcoin-core", "Specify pid file (default: m2mcoin.pid)"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Specify your own public address"),
 QT_TRANSLATE_NOOP("bitcoin-core", "This help message"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Threshold for disconnecting misbehaving peers (default: 100)"),

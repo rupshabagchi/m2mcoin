@@ -78,7 +78,7 @@ void setupAmountWidget(QLineEdit *widget, QWidget *parent)
 
 bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
 {
-    if(uri.scheme() != QString("smallchange"))
+    if(uri.scheme() != QString("m2mcoin"))
         return false;
 
     // check if the address is valid
@@ -130,11 +130,11 @@ bool parseBitcoinURI(QString uri, SendCoinsRecipient *out)
 {
     // Convert SmallChange:// to SmallChange:
     //
-    //    Cannot handle this later, because smallchange:// will cause Qt to see the part after // as host,
+    //    Cannot handle this later, because m2mcoin:// will cause Qt to see the part after // as host,
     //    which will lowercase it (and thus invalidate the address).
-    if(uri.startsWith("smallchange://"))
+    if(uri.startsWith("m2mcoin://"))
     {
-        uri.replace(0, 11, "smallchange:");
+        uri.replace(0, 11, "m2mcoin:");
     }
     QUrl uriInstance(uri);
     return parseBitcoinURI(uriInstance, out);
@@ -360,7 +360,7 @@ boost::filesystem::path static GetAutostartDir()
 
 boost::filesystem::path static GetAutostartFilePath()
 {
-    return GetAutostartDir() / "smallchange.desktop";
+    return GetAutostartDir() / "m2mcoin.desktop";
 }
 
 bool GetStartOnSystemStartup()
@@ -398,7 +398,7 @@ bool SetStartOnSystemStartup(bool fAutoStart)
         boost::filesystem::ofstream optionFile(GetAutostartFilePath(), std::ios_base::out|std::ios_base::trunc);
         if (!optionFile.good())
             return false;
-        // Write a smallchange.desktop file to the autostart directory:
+        // Write a m2mcoin.desktop file to the autostart directory:
         optionFile << "[Desktop Entry]\n";
         optionFile << "Type=Application\n";
         optionFile << "Name=SmallChange\n";
@@ -422,10 +422,10 @@ bool SetStartOnSystemStartup(bool fAutoStart) { return false; }
 HelpMessageBox::HelpMessageBox(QWidget *parent) :
     QMessageBox(parent)
 {
-    header = tr("smallchange-qt") + " " + tr("version") + " " +
+    header = tr("m2mcoin-qt") + " " + tr("version") + " " +
         QString::fromStdString(FormatFullVersion()) + "\n\n" +
         tr("Usage:") + "\n" +
-        "  smallchange-qt [" + tr("command-line options") + "]                     " + "\n";
+        "  m2mcoin-qt [" + tr("command-line options") + "]                     " + "\n";
 
     coreOptions = QString::fromStdString(HelpMessage());
 
@@ -434,7 +434,7 @@ HelpMessageBox::HelpMessageBox(QWidget *parent) :
         "  -min                   " + tr("Start minimized") + "\n" +
         "  -splash                " + tr("Show splash screen on startup (default: 1)") + "\n";
 
-    setWindowTitle(tr("smallchange-qt"));
+    setWindowTitle(tr("m2mcoin-qt"));
     setTextFormat(Qt::PlainText);
     // setMinimumWidth is ignored for QMessageBox so put in nonbreaking spaces to make it wider.
     setText(header + QString(QChar(0x2003)).repeated(50));

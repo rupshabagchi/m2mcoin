@@ -1,6 +1,6 @@
 src/*.exe
-src/smallchange
-src/test_smallchange
+src/m2mcoin
+src/test_m2mcoin
 src/build.h
 .*.swp
 *.*~*
@@ -13,7 +13,7 @@ src/build.h
 #compilation and Qt preprocessor part
 *.qm
 Makefile
-smallchange-qt
+m2mcoin-qt
 #resources cpp
 qrc_*.cpp
 #qt creator

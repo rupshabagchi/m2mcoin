@@ -1,4 +1,4 @@
-SmallChange 0.1 ALPHA
+M2Mcoin 0.1 ALPHA
 
 Copyright (c) 2009-2012 Bitcoin Developers
 Copyright (c) 2011-2012 Litecoin Developers
@@ -20,14 +20,14 @@ with each other, with the help of a P2P network to check for double-spending.
 
 Setup
 -----
-You need the Qt4 run-time libraries to run smallchange-qt. On Debian or Ubuntu:
+You need the Qt4 run-time libraries to run m2mcoin-qt. On Debian or Ubuntu:
   sudo apt-get install libqtgui4
 
 Unpack the files into a directory and run:
- bin/32/smallchange-qt (GUI, 32-bit)
- bin/32/smallchange (headless, 32-bit)
- bin/64/smallchange-qt (GUI, 64-bit)
- bin/64/smallchange (headless, 64-bit)
+ bin/32/m2mcoin-qt (GUI, 32-bit)
+ bin/32/m2mcoin (headless, 32-bit)
+ bin/64/m2mcoin-qt (GUI, 64-bit)
+ bin/64/m2mcoin (headless, 64-bit)
 
 
 See the documentation at the bitcoin wiki:

@@ -936,7 +936,7 @@ static std::string FormatException(std::exception* pex, const char* pszThread)
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(NULL, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "smallchange";
+    const char* pszModule = "m2mcoin";
 #endif
     if (pex)
         return strprintf(
@@ -975,7 +975,7 @@ boost::filesystem::path GetDefaultDataDir()
     // Windows < Vista: C:\Documents and Settings\Username\Application Data\SmallChange
     // Windows >= Vista: C:\Users\Username\AppData\Roaming\SmallChange
     // Mac: ~/Library/Application Support/SmallChange
-    // Unix: ~/.smallchange
+    // Unix: ~/.m2mcoin
 #ifdef WIN32
     // Windows
     return GetSpecialFolderPath(CSIDL_APPDATA) / "SmallChange";
@@ -993,7 +993,7 @@ boost::filesystem::path GetDefaultDataDir()
     return pathRet / "SmallChange";
 #else
     // Unix
-    return pathRet / ".smallchange";
+    return pathRet / ".m2mcoin";
 #endif
 #endif
 }
@@ -1035,7 +1035,7 @@ const boost::filesystem::path &GetDataDir(bool fNetSpecific)
 
 boost::filesystem::path GetConfigFile()
 {
-    boost::filesystem::path pathConfigFile(GetArg("-conf", "smallchange.conf"));
+    boost::filesystem::path pathConfigFile(GetArg("-conf", "m2mcoin.conf"));
     if (!pathConfigFile.is_complete()) pathConfigFile = GetDataDir(false) / pathConfigFile;
     return pathConfigFile;
 }
@@ -1045,14 +1045,14 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 {
     boost::filesystem::ifstream streamConfig(GetConfigFile());
     if (!streamConfig.good())
-        return; // No smallchange.conf file is OK
+        return; // No m2mcoin.conf file is OK
 
     set<string> setOptions;
     setOptions.insert("*");
 
     for (boost::program_options::detail::config_file_iterator it(streamConfig, setOptions), end; it != end; ++it)
     {
-        // Don't overwrite existing settings so command line settings override smallchange.conf
+        // Don't overwrite existing settings so command line settings override m2mcoin.conf
         string strKey = string("-") + it->string_key;
         if (mapSettingsRet.count(strKey) == 0)
         {
@@ -1066,7 +1066,7 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 
 boost::filesystem::path GetPidFile()
 {
-    boost::filesystem::path pathPidFile(GetArg("-pid", "smallchange.pid"));
+    boost::filesystem::path pathPidFile(GetArg("-pid", "m2mcoin.pid"));
     if (!pathPidFile.is_complete()) pathPidFile = GetDataDir() / pathPidFile;
     return pathPidFile;
 }
